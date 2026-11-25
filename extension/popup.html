@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="popup.css">
+  <script type="module" src="popup.js"></script>
+  <title>Sound Booster</title>
+</head>
+<body>
+  <main>
+    <header>
+      <img src="icons/48.png" width="38" height="38" alt="">
+      <div class="heading">
+        <h1>Sound Booster</h1>
+        <p id="status" role="status">Checking this tab…</p>
+      </div>
+      <button id="toggle" type="button" disabled>Enable on this tab</button>
+    </header>
+    <p id="error" role="alert" hidden></p>
+
+    <section class="routing" aria-label="Playback settings">
+      <label>Listening preset
+        <select id="preset" disabled>
+          <option value="balanced">Balanced</option>
+          <option value="clean">Clean</option>
+          <option value="detail">Detail</option>
+          <option value="dialogue">Dialogue</option>
+          <option value="night">Night</option>
+          <option value="cinema">Cinema</option>
+          <option value="custom" disabled>Custom</option>
+        </select>
+      </label>
+      <label>Playback
+        <select id="outputMode" disabled>
+          <option value="stereo">Stereo</option>
+          <option value="dtsStereo">DTS Stereo</option>
+          <option value="surround">Headphone surround</option>
+          <option value="pcm71">7.1 PCM · Windows</option>
+        </select>
+      </label>
+      <div id="surround-controls" class="control" hidden>
+        <label for="surround">Surround amount</label>
+        <output for="surround" id="surround-value">65%</output>
+        <input id="surround" type="range" min="0" max="100" step="1" value="65" disabled>
+        <small id="surround-help">For one spatial effect at a time, turn off Windows spatial sound.</small>
+      </div>
+      <p id="pcm-status" class="pcm-status" role="status" hidden></p>
+      <div id="bass-recovery-controls" class="control" hidden>
+        <label for="bassRecoveryDb">Bass recovery</label>
+        <output for="bassRecoveryDb" id="bassRecoveryDb-value">+4 dB</output>
+        <input id="bassRecoveryDb" type="range" min="0" max="8" step="1" value="4" aria-describedby="bass-recovery-help" disabled>
+        <small id="bass-recovery-help">Restore low end without raising the full mix.</small>
+      </div>
+      <div class="reset-row"><button id="reset-all" type="button" disabled>Reset all settings</button></div>
+    </section>
+
+    <section class="levels panel" aria-label="Audio levels">
+      <div class="control">
+        <label for="boostDb">Quiet boost</label>
+        <output for="boostDb" id="boostDb-value">+9 dB</output>
+        <input id="boostDb" type="range" min="0" max="18" step="1" value="9" aria-describedby="boost-help" disabled>
+        <small id="boost-help">Lifts quieter passages in the mix.</small>
+      </div>
+      <div class="control">
+        <label for="detailDb">Detail lift</label>
+        <output for="detailDb" id="detailDb-value">0 dB</output>
+        <input id="detailDb" type="range" min="0" max="12" step="1" value="0" aria-describedby="detail-help" disabled>
+        <small id="detail-help">Brings out soft bass, dialogue, and sharp effects.</small>
+      </div>
+      <div class="control level-pair">
+        <label for="volumeDb">Overall volume</label>
+        <output for="volumeDb" id="volumeDb-value">0 dB</output>
+        <input id="volumeDb" type="range" min="0" max="24" step="1" value="0" disabled>
+      </div>
+      <div class="control level-pair ceiling-control">
+        <label for="ceilingDb">Peak ceiling</label>
+        <output for="ceilingDb" id="ceilingDb-value">−6 dBFS</output>
+        <input id="ceilingDb" type="range" min="-24" max="-1" step="1" value="-6" aria-describedby="ceiling-help" disabled>
+        <small id="ceiling-help">Lower for gentler peaks.</small>
+      </div>
+      <div class="meters" aria-hidden="true">
+        <span>Input</span><div class="meter-track"><div id="input-meter" class="meter-fill"></div></div>
+        <span>Output</span><div class="meter-track"><div id="output-meter" class="meter-fill"></div></div>
+        <span>Limiter</span><span id="limiter-meter">—</span>
+      </div>
+    </section>
+
+    <details class="panel eq">
+      <summary>Equalizer <span>Bass · Presence · Treble</span></summary>
+      <div class="control">
+        <label for="bassDb">Bass</label>
+        <output for="bassDb" id="bassDb-value">0 dB</output>
+        <input id="bassDb" type="range" min="-9" max="9" step="1" value="0" disabled>
+      </div>
+      <div class="control">
+        <label for="presenceDb">Presence</label>
+        <output for="presenceDb" id="presenceDb-value">0 dB</output>
+        <input id="presenceDb" type="range" min="-6" max="6" step="1" value="0" disabled>
+      </div>
+      <div class="control">
+        <label for="trebleDb">Treble</label>
+        <output for="trebleDb" id="trebleDb-value">0 dB</output>
+        <input id="trebleDb" type="range" min="-9" max="9" step="1" value="0" disabled>
+      </div>
+      <div class="reset-row"><button id="reset-eq" type="button" disabled>Reset EQ</button></div>
+    </details>
+
+    <details class="windows">
+      <summary>DTS Headphone:X &amp; Windows Sonic</summary>
+      <p>Select your renderer for your headphones under Windows <strong>Settings → System → Sound → Spatial sound</strong>. Choose <strong>DTS Stereo</strong> to keep just the fronts or <strong>7.1 PCM · Windows</strong> to add ambience. <strong>Use original audio</strong> restores Chrome's normal playback.</p>
+    </details>
+  </main>
+</body>
+</html>

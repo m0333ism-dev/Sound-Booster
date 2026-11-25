@@ -1,0 +1,158 @@
+:root {
+  color-scheme: dark;
+  font: 13px/1.4 system-ui, sans-serif;
+  background: #121b1d;
+  color: #edf8f5;
+  --muted: #a8bbb5;
+  --accent: #72e3bf;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; width: 402px; }
+main { padding: 14px; }
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.heading { flex: 1; min-width: 0; }
+h1 { margin: 0; font-size: 18px; font-weight: 680; }
+header p { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+header p[data-active="true"] { color: var(--accent); }
+
+.panel {
+  border: 1px solid #2d4140;
+  border-radius: 10px;
+  background: #1a2627;
+  padding: 0 12px;
+}
+
+.routing {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 7px 9px;
+  margin-bottom: 9px;
+}
+
+.routing > label { color: var(--muted); font-size: 11px; }
+.routing > .control { grid-column: 1 / -1; padding: 3px 1px; }
+.pcm-status {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: #253733;
+  color: var(--accent);
+  font-size: 11px;
+}
+.pcm-status[data-fallback="true"] { background: #342e27; color: #f8cc89; }
+select {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 6px 8px;
+  border: 1px solid #405351;
+  border-radius: 6px;
+  background: #202f2e;
+  color: #edf8f5;
+  font: 600 12px system-ui, sans-serif;
+}
+
+.control {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  row-gap: 2px;
+  padding: 8px 0;
+}
+
+.control + .control { border-top: 1px solid #30413f; }
+.levels { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 12px; }
+.levels > :not(.level-pair) { grid-column: 1 / -1; }
+.level-pair { align-content: start; }
+label { font-weight: 640; }
+output {
+  color: var(--accent);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}
+
+.ceiling-control { --accent: #f8cc89; }
+
+input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 17px;
+  margin: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+small { grid-column: 1 / -1; color: var(--muted); font-size: 11px; }
+
+.meters {
+  display: grid;
+  grid-template-columns: 43px 1fr;
+  align-items: center;
+  gap: 4px 8px;
+  padding: 8px 0 9px;
+  border-top: 1px solid #30413f;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.meter-track { overflow: hidden; height: 6px; border-radius: 9px; background: #2c3e3c; }
+.meter-fill {
+  width: 100%;
+  height: 100%;
+  background: #88aeaa;
+  border-radius: inherit;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 150ms ease-out;
+}
+#output-meter { background: var(--accent); }
+#limiter-meter { color: #f8cc89; font-variant-numeric: tabular-nums; }
+
+details { margin-top: 9px; }
+summary { cursor: pointer; padding: 8px 0; font-weight: 640; }
+summary span { float: right; color: var(--muted); font-weight: 400; font-size: 11px; }
+.windows summary { font-size: 12px; color: var(--muted); padding: 2px 0; }
+.windows p { margin: 7px 0 0; font-size: 11px; color: var(--muted); }
+
+button {
+  min-height: 33px;
+  padding: 5px 9px;
+  max-width: 135px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #102b24;
+  font: 11px/1.3 system-ui, sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button[data-active="true"] { border-color: #4d8072; background: #203632; color: #e1fff5; }
+.reset-row { display: flex; justify-content: flex-end; margin: 6px 0; }
+.routing > .reset-row { grid-column: 1 / -1; margin: 0; }
+.reset-row button {
+  min-height: 27px;
+  border-color: #405951;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 600;
+}
+button:hover:not(:disabled) { filter: brightness(1.10); }
+:focus-visible { outline: 2px solid #f8cc89; outline-offset: 2px; }
+:disabled { cursor: default; opacity: .6; }
+#error { color: #ffb8ae; margin: -3px 0 8px; font-size: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .meter-fill { transition: none; }
+}
